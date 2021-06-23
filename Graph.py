@@ -20,7 +20,7 @@ class Graph(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_node(self, node):
+    def add_nodes(self, *nodes):
         pass
 
     @abc.abstractmethod
@@ -28,7 +28,7 @@ class Graph(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_edge(self, *args: tuple) -> None:
+    def add_edges(self, *edges: tuple) -> None:
         pass
 
     @abc.abstractmethod

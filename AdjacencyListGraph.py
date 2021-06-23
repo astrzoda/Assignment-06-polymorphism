@@ -2,9 +2,9 @@ from AdjacencyListDiGraph import AdjacencyListDiGraph
 
 
 class AdjacencyListGraph(AdjacencyListDiGraph):
-    def add_edge(self, *args: tuple) -> None:
-        super().add_edge(*args)
-        for pair in args:
+    def add_edges(self, *edges: tuple) -> None:
+        super().add_edges(*edges)
+        for pair in edges:
             source, destination = pair[0], pair[1]
             weight = self._adjacency_list[source][destination]
             self._adjacency_list[destination][source] = weight

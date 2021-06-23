@@ -24,8 +24,8 @@ class AdjacencyMatrixDiGraph(Graph):
         else:
             return self._adjacency_matrix[source_index_label][destination_index_label]
 
-    def add_edge(self, *args: tuple) -> None:
-        for edge in args:
+    def add_edges(self, *edges: tuple) -> None:
+        for edge in edges:
             if len(edge) > 3 or len(edge) < 2 or edge[0] not in self._nodes_labels or \
                     edge[1] not in self._nodes_labels:
                 raise ValueError
@@ -78,8 +78,8 @@ class AdjacencyMatrixDiGraph(Graph):
         except StopIteration:
             pass
 
-    def add_node(self, *args):
-        for node in args:
+    def add_nodes(self, *nodes):
+        for node in nodes:
             if node in self._nodes_labels:
                 raise ValueError
             self._nodes_labels.append(node)

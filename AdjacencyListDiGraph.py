@@ -1,4 +1,5 @@
 from Graph import Graph
+import logging
 
 
 class AdjacencyListDiGraph(Graph):
@@ -6,29 +7,32 @@ class AdjacencyListDiGraph(Graph):
         super().__init__()
         self._adjacency_list = {}
 
+    @property
+    def number_of_nodes(self):
+        return len(self._adjacency_list)
+
     def weight(self, source, destination):
         if destination not in self._adjacency_list[source].keys():
             raise ValueError
         return self._adjacency_list[source][destination]
 
-    def add_node(self, *args) -> None:
-        for node in args:
-            if node in self._adjacency_list.keys():
-                raise ValueError
-            self._adjacency_list[node] = self._adjacency_list.get(node, {})
-            self._number_of_nodes += 1
+    # validation of adding nodes
+    def add_nodes(self, *nodes) -> None:
+        unique_input_nodes = set(nodes)
+        if len(unique_input_nodes) < len(nodes) or any(element in unique_input_nodes for element in
+                                                       self._adjacency_list.keys()):
+            raise ValueError()
+            # logging.basicConfig()
+            # logger = logging.getLogger(__name__)
+            # logger.warning("Duplicated nodes")
+        for node in nodes:
+            self._adjacency_list[node] = {}
 
     def nodes(self):
-        nodes_iterator = iter(self._adjacency_list.keys())
-        try:
-            while True:
-                next_node = next(nodes_iterator)
-                yield next_node
-        except StopIteration:
-            pass
+        return self._adjacency_list.keys()
 
-    def add_edge(self, *args: tuple) -> None:
-        for edge in args:
+    def add_edges(self, *edges: tuple) -> None:
+        for edge in edges:
             if len(edge) > 3 or len(edge) < 2 or edge[0] not in self._adjacency_list.keys() or \
                     edge[1] not in self._adjacency_list.keys():
                 raise ValueError
@@ -41,7 +45,7 @@ class AdjacencyListDiGraph(Graph):
                 weight = edge[2]
             else:
                 weight = 1
-            self._adjacency_list[source][destination] = self._adjacency_list[source].get(source, weight)
+            self._adjacency_list[source][destination] = weight
             self._number_of_edges += 1
 
     def edges(self):
@@ -61,16 +65,8 @@ class AdjacencyListDiGraph(Graph):
     def ingoing_neighbors(self, node):
         for vertex, neighborhood in self._adjacency_list.items():
             if vertex != node:
-                for neighbor in neighborhood:
-                    if neighbor == node:
-                        yield vertex
+                if node in neighborhood:
+                    yield vertex
 
     def outgoing_neighbors(self, node):
-        neighbors_iterator = iter(self._adjacency_list[node])
-        try:
-            while True:
-                neighbor = next(neighbors_iterator)
-                yield neighbor
-        except StopIteration:
-            pass
-
+        return self._adjacency_list[node].keys()

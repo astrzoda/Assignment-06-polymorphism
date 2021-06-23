@@ -5,9 +5,9 @@ class AdjacencyMatrixGraph(AdjacencyMatrixDiGraph):
     def __init__(self):
         super().__init__()
 
-    def add_edge(self, *args: tuple) -> None:
-        super().add_edge(*args)
-        for edge in args:
+    def add_edge(self, *edges: tuple) -> None:
+        super().add_edges(*edges)
+        for edge in edges:
             source, destination = edge[0], edge[1]
             source_label_index, destination_label_index = self._nodes_labels.index(source),\
                                                           self._nodes_labels.index(destination)
