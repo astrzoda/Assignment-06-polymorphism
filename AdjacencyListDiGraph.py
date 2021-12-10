@@ -1,17 +1,22 @@
 from Graph import Graph
 import logging
+from typing import Generic, TypeVar
+
+
+Node = TypeVar("Node")
+T = TypeVar("T")
 
 
 class AdjacencyListDiGraph(Graph):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._adjacency_list = {}
 
     @property
-    def number_of_nodes(self):
+    def number_of_nodes(self) -> int:
         return len(self._adjacency_list)
 
-    def weight(self, source, destination):
+    def weight(self, source, destination) -> float:
         if destination not in self._adjacency_list[source].keys():
             raise ValueError
         return self._adjacency_list[source][destination]

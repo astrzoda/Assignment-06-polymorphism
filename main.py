@@ -10,10 +10,11 @@ if __name__ == '__main__':
     # for edge in my_graph.edges():
     #     print(edge)
     my_graph = AdjacencyListGraph()
-    my_graph.add_nodes(3)
+    my_graph.add_nodes(3, "x")
     my_graph.add_nodes(2)
     # print(my_graph.number_of_nodes)
-    # for v in my_graph.nodes():
-        # print(v)
-    print(my_graph.number_of_nodes)
+    # def naive_zip(first: Sequence[Any], second: Sequence[Any]) -> Iterable[tuple[Any, Any]]:
+    for v in my_graph.nodes():
+        pass
+    # print(my_graph.nodes)
 
